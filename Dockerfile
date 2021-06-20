@@ -1,18 +1,16 @@
-# Use NodeJS base image
-FROM node:14
-
-# Create app directory in Docker
+## Build
+FROM beevelop/ionic:latest AS ionic
+# Create app directory
 WORKDIR /usr/src/app
-
-# Install app dependencies by copying
-# package.json and package-lock.json
+# Install app dependencies
 COPY package*.json ./
-
-# Install dependencies in Docker
-RUN npm install
-
-# Copy app from local environment into the Docker image
+RUN npm ci
+# Bundle app source
 COPY . .
+# RUN ionic init
+RUN ionic build
+## Run
+FROM nginx:alpine
 
-# Set the API’s port number
-EXPOSE 8080
+COPY --from=ionic  /usr/src/app/www /usr/share/nginx/html
+
