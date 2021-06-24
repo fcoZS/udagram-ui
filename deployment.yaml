@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-ui-service
+  labels:
+    app: my-ui-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-ui-service
+  template:
+    metadata:
+      labels:
+        app: my-ui-service
+    spec:
+      containers:
+        - name: udagram-ui
+          image: frcozuniga/udagram-ui
+          ports:
+            - containerPort: 80
+
+
