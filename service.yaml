@@ -6,7 +6,8 @@ metadata:
     run: my-ui-service
 spec:
   ports:
-    - port: 80
-      protocol: TCP
+    - name: "8100"
+      port: 8100
+      targetPort: 80
   selector:
     run: my-ui-service
